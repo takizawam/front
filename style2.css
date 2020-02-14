@@ -1,0 +1,98 @@
+body {
+font-family: sans-serif;
+}
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  color: #404040;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  font-weight: bold;
+}
+
+.buttonRec {
+  position: relative;
+  text-align: center;
+  background: rgba(0, 0, 255, 0.33);
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+}
+
+.buttonStop {
+  position: relative;
+  text-align: center;
+  background: #FD5954;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+}
+
+.buttonLoading {
+  position: relative;
+  text-align: center;
+  background: #c1f5f7;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+}
+
+.innerTextRec {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200px;/*上のwidthと合わせる*/
+  text-align: center;
+  -webkit-transform : translateY(0%);
+  transform : translateY(-74%);
+  color: #333333;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.innerTextStop {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200px;/*上のwidthと合わせる*/
+  text-align: center; */
+  -webkit-transform : translateY(0%);
+  transform : translateY(-100%);
+  color: #333333;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.innerTextLoading {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200px;/*上のwidthと合わせる*/
+  text-align: center; */
+  -webkit-transform : translateY(0%);
+  transform : translateY(-100%);
+  color: #333333;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+audio {
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+}
+
+.audioPlayDownload {
+
+}
