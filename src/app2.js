@@ -5,6 +5,7 @@ var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 var recvocal;
 var guitar_filename;
+var downloadname;
 
 // shim for AudioContext when it's not avb.
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -166,6 +167,7 @@ function stopVocalRecording() {
 	//create the wav blob and pass it on to createDownloadLink
 	recvocal.exportWAV(createDownloadLink);
 
+	console.log('before 5000');
 	// Added by Takizawa
 	setTimeout(() => {
 		document.getElementById("recStopText").innerHTML = "Complete";
@@ -175,8 +177,13 @@ function stopVocalRecording() {
 		var element2 = document.getElementById('recStopText');
 		element2.classList.remove("innerTextStop");
 		element2.classList.add("innerTextLoading");
-  }, 5000)
+		console.log('in 5000');
+		playMixedSound();
+  }, 3000)
+	console.log('after 5000');
 
+	// recvocal.exportWAV(createDownloadLink);
+	console.log('undercreateDownloadLink 5000');
 	//To stop the button
 	window.addEventListener('click', e => { e.stopImmediatePropagation(); }, true);
 }
@@ -225,7 +232,7 @@ function playGuitarSound(blob) {
 
 //////////////////////////////////////////////////////////// createDownloadLink ////////////////////////////////////////////////////////////
 function createDownloadLink(blob) {
-
+	console.log("begin createDownloadLink");
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
@@ -235,7 +242,7 @@ function createDownloadLink(blob) {
 	var vocal_filename = new Date().toISOString();
 	vocal_filename = vocal_filename.replace( ':', '-' ).replace( ':', '-' );
 
-	var downloadname = guitar_filename+".wav_"+vocal_filename+".wav";
+	downloadname = guitar_filename+".wav_"+vocal_filename+".wav";
 
 	//add controls to the <audio> element
 	au.controls = true;
@@ -245,15 +252,15 @@ function createDownloadLink(blob) {
 	link.href = url;
 	link.download = vocal_filename+".wav"; //download forces the browser to donwload the file using the  filename
 
-	//the new audio elementをliに追加
-	li.appendChild(au);
-
-	//add the filename to the li
-	// li.appendChild(document.createTextNode("hello"+".wav "))
-	li.appendChild(document.createTextNode(downloadname+".wav "))
-
-	//add the save to disk link to li
-	li.appendChild(link);
+	// //the new audio elementをliに追加
+	// li.appendChild(au);
+	//
+	// //add the filename to the li
+	// // li.appendChild(document.createTextNode("hello"+".wav "))
+	// li.appendChild(document.createTextNode(downloadname+".wav "))
+	//
+	// //add the save to disk link to li
+	// li.appendChild(link);
 
 	//upload link(wavファイルをXHRを用いてアップロードする)
 	var upload = document.createElement('a');
@@ -284,8 +291,39 @@ function createDownloadLink(blob) {
 	// xhr3.send(guitar_filename+".wav_"+vocal_filename+".wav");
 	xhr3.send(downloadname);
 
-	li.appendChild(document.createTextNode (" "))//add a space in between
-	li.appendChild(upload)//add the upload link to li
+	// // li.appendChild(document.createTextNode (" "))//add a space in between
+	// // li.appendChild(upload)//add the upload link to li
+	// // // 【これは取っておこう】add the li element to the ol(vocalを下に挿入する)
+	// recordingsList.appendChild(li);
+}
+
+//////////////////////////////////////////////////////////// playMixedSound ////////////////////////////////////////////////////////////
+function playMixedSound() {
+	console.log("playMixedSound called");
+	// var audioElement = new Audio("/Applications/MAMP/recording2/wavfiles/" + downloadname);
+	var au = document.createElement('audio');
+	var li = document.createElement('li');
+	var link = document.createElement('a');
+	var playFileName = downloadname.replace("_", "");
+
+	//add controls to the <audio> element
+	au.controls = true;
+	au.src = "/Applications/MAMP/recording2/wavfiles/" + playFileName;
+	console.log("/Applications/MAMP/recording2/wavfiles/" + playFileName);
+
+	console.log(playFileName);
+	//the new audio elementをliに追加
+	li.appendChild(au);
+
+	//add the filename to the li
+	// li.appendChild(document.createTextNode("hello"+".wav "))
+	// li.appendChild(document.createTextNode(playFileName))
+
+	//add the save to disk link to li
+	// li.appendChild(link);
+
+	// li.appendChild(document.createTextNode (" "))//add a space in between
+	// li.appendChild(upload)//add the upload link to li
 	// 【これは取っておこう】add the li element to the ol(vocalを下に挿入する)
 	recordingsList.appendChild(li);
 }
